@@ -1,34 +1,108 @@
 <template>
   <div class="login_content">
-    <div class="logo">
-      <img src="http://thumbs.dreamstime.com/b/%E4%B8%8E-%E4%B8%8B%E8%90%BD%E7%9A%84%E8%8D%89-36493052.jpg" alt="#" />
+    <div class="login" v-show="isTrue">
+      <div class="logo">
+        <img src alt="#" />
+      </div>
+      <div class="input">
+        <input type="text" placeholder="请输入用户名" v-model="username" />
+        <input type="password" placeholder="请输入密码" v-model="password" />
+        <button>登录</button>
+        <h5>忘记密码?</h5>
+      </div>
+      <div class="inset">
+        <p>
+          没有账号?
+          <span @click="toRegiste">立即注册</span>
+        </p>
+      </div>
     </div>
-    <div class="input">
-      <input type="text">
+    <div class="registe" v-show="!isTrue">
+      <div class="input">
+        <input type="text" placeholder="请输入用户名" v-model="username" />
+        <input type="password" placeholder="请输入密码" v-model="password" />
+        <input type="password" placeholder="请确认密码" v-model="rePassword" />
+        <button>注册</button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Login"
+  name: "Login",
+  data() {
+    return {
+      username: "",
+      password: "",
+      rePassword:'',
+      isTrue: true
+    };
+  },
+  methods: {
+    toRegiste () {
+      this.isTrue = false;
+    }
+  }
 };
 </script>
 
 <style scoped>
-.login_content{
+.login_content {
   width: 100%;
   height: 100%;
-  text-align: center
+  text-align: center;
 }
-.logo{
-  width: 80%;
+.registe{
+  margin: 60px 0;
+}
+.logo {
+  width: 140px;
   height: 140px;
-  margin: 0px auto;
-  padding-top: 50px;
+  margin: 50px auto;
+  border-radius: 50%;
+  border: 1px solid #07c160;
 }
-.logo img{
+.logo img {
   width: 100%;
   height: 100%;
+}
+.input input {
+  width: 180px;
+  height: 30px;
+  display: block;
+  margin: 10px auto;
+  padding: 5px 10px;
+  border-bottom: 1px solid #ecece9;
+}
+.input input::-webkit-input-placeholder {
+  font-size: 12px;
+  color: #dadad8c0;
+}
+.input button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 85px;
+  border-bottom: 1px solid #ecece9;
+  background: #07c160;
+  font-size: 16px;
+  color: #fff;
+  border-radius: 15px;
+  letter-spacing: 5px;
+  font-weight: bold;
+}
+.input h5 {
+  font-size: 10px;
+  color: #07c160;
+}
+.inset {
+  padding: 15px 0;
+  font-size: 12px;
+  color: #000;
+}
+.inset p span {
+  color: #07c160;
+  font-size: 12px;
+  padding-left: 4px;
 }
 </style>
