@@ -1,13 +1,13 @@
 <template>
   <div class="login_content">
-    <div class="login" v-show="isTrue">
+    <div class="login-wrap" v-show="isTrue">
       <div class="logo">
         <img src alt="#" />
       </div>
       <div class="input">
         <input type="text" placeholder="请输入用户名" v-model="username" />
         <input type="password" placeholder="请输入密码" v-model="password" />
-        <button>登录</button>
+        <button @click="login">登录</button>
         <h5>忘记密码?</h5>
       </div>
       <div class="inset">
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import {loginIn} from '../httpApi/loginApi';
 export default {
   name: "Login",
   data() {
@@ -42,6 +43,21 @@ export default {
   methods: {
     toRegiste () {
       this.isTrue = false;
+    },
+    login () {
+      let data ={
+        username: this.username,
+        password: this.password
+      };
+      this.$http.post("/api/user/login",data).then(res => {
+        console.log(res.data.errno)
+        if(res.data.errno == 0){
+          console.log(res.data.errno)
+          this.$router.push('/')
+        }
+      }).catch(err => {
+          console.log(err)
+          })
     }
   }
 };
@@ -53,7 +69,10 @@ export default {
   height: 100%;
   text-align: center;
 }
-.registe{
+.login-wrap {
+  height: 100%;
+}
+.registe {
   margin: 60px 0;
 }
 .logo {
@@ -99,6 +118,9 @@ export default {
   padding: 15px 0;
   font-size: 12px;
   color: #000;
+  width: 100%;
+  position: absolute;
+  bottom: 30px;
 }
 .inset p span {
   color: #07c160;

@@ -4,7 +4,9 @@ import router from './router'
 import './assets/styles/reset.css'
 import Vant from 'vant'
 import 'vant/lib/index.css'
+import axios from 'axios'
 
+Vue.prototype.$http = axios;
 Vue.use(Vant);
 Vue.config.productionTip = false
 
