@@ -22,7 +22,7 @@
         <input type="text" placeholder="请输入用户名" v-model="username" />
         <input type="password" placeholder="请输入密码" v-model="password" />
         <input type="password" placeholder="请确认密码" v-model="rePassword" />
-        <button>注册</button>
+        <button @click="Registe">注册</button>
       </div>
     </div>
   </div>
@@ -52,12 +52,26 @@ export default {
       this.$http.post("/api/user/login",data).then(res => {
         console.log(res.data.errno)
         if(res.data.errno == 0){
-          console.log(res.data.errno)
+          sessionStorage.setItem("user", data.username); // 保存用户到本地会话
           this.$router.push('/')
         }
       }).catch(err => {
           console.log(err)
           })
+    },
+    Registe(){
+       let data ={
+        username: this.username,
+        password: this.password
+      };
+      this.$http.post("/api/user/register",data).then(res => {
+        console.log(res.data.errno)
+        if(res.data.errno == 0){
+          this.isTrue = true;
+        }
+      }).catch(err => {
+          console.log(err)
+          }) 
     }
   }
 };
